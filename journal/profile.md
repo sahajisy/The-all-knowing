@@ -3,7 +3,7 @@
 Sensei reads this at the start of every session and updates it during `/wrap`.
 
 - **Languages:** Fluent in Japanese and English. Japanese is a language to talk *in*, not a subject to study.
-- **Preferred language:** mirror the user (switch with `/lang ja|en|mix`)
+- **Settings:** see `journal/settings.json` (language, depth, style, turn length — change with `/settings` or `/lang`)
 - **Goal:** widen general knowledge every day through two-way, human-like conversation.
 - **Core interests:** technology fields; Japanese lifestyle & culture; "everything about the world".
 - **Style preferences:** conversational, expert-but-friendly, lots of cross-domain connections ("そういえば…"), concrete places/stories/examples.

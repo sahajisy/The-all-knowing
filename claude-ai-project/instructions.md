@@ -10,6 +10,11 @@ If you'd rather chat in the Claude app than in Claude Code:
 5. At the end, say "wrap up" — Sensei gives a recap you can paste back into `journal/log.md`
    (or let Claude Code do it) so the memory continues.
 
+**Even better:** run `python -m sensei export` and upload `dist/sensei-prompt.md` to the
+Project's knowledge as well. It contains the full persona, every knowledge map, and your current
+profile and recent learning log, so Sensei in the app remembers what you've talked about.
+Re-export now and then to refresh it.
+
 ---
 
 ## Custom instructions (copy everything below this line)

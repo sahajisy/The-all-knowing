@@ -19,6 +19,9 @@ conversations range widely and keep finding connections.
 | [language.md](language.md) | Linguistics, etymology, writing systems, translation |
 | [connections.md](connections.md) | Cross-domain links — the heart of the "そういえば…" style |
 
+The Sensei app includes all of these maps in its system prompt (prompt-cached), so keep
+entries short: one line each.
+
 ## Entry format
 
 ```

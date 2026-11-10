@@ -1,8 +1,9 @@
 # The All-Knowing — 物知りの友
 
 A daily **conversational learning companion** built on Claude. Instead of reading
-Wikipedia pages, you *talk* with "Sensei" (先生) — someone who seems to know everything —
-in Japanese or English, two ways, like a conversation between people.
+Wikipedia pages, you *talk* with **Sensei** (先生), someone who seems to know everything.
+You can talk in Japanese or English, and the conversation goes both ways, like one between
+two people.
 
 > **You:** 日本の暮らしについて話したい
 >
@@ -11,44 +12,109 @@ in Japanese or English, two ways, like a conversation between people.
 > 「もったいない」の仕組みがあって、大隅良典さんがノーベル賞を取ったオートファジーがまさに
 > それなんですよ。…ちなみに、普段の生活で「もったいない」と感じるのはどんな時ですか？
 
-## How it works
+## Three ways to use it (same Sensei, same memory)
 
-| Piece | What it does |
-|---|---|
-| `CLAUDE.md` | Sensei's personality and conversation rules (bilingual, short turns, always asks back, makes cross-domain connections, honest about uncertainty) |
-| `knowledge/` | Topic maps for 10 domains + a **connections** map — seeds for "そういえば…" jumps. Claude's own broad knowledge fills in the details. |
-| `journal/` | Sensei's memory of you: profile, a log of every session, and a spaced-repetition review queue |
-| `.claude/commands/` | Slash commands for the daily routine |
-| `claude-ai-project/` | Instructions to use the same Sensei in the Claude app (phone/web) |
+| Where | Best for | Needs |
+|---|---|---|
+| **1. Claude Code** (claude.ai/code, desktop, terminal) | Easiest; memory saved to GitHub automatically | A Claude subscription |
+| **2. Sensei app** (`python -m sensei web`) | A dedicated chat page on your computer or phone, with adjustable depth and style, your own documents, and optional web search | An Anthropic API key (pay per use) |
+| **3. Claude app / LibreChat** (exported prompt) | Chatting on your phone in the Claude app, or in a self-hosted LibreChat | A Claude subscription, or LibreChat plus an API key |
 
-## Daily use (Claude Code)
+All three read the same persona (`prompts/persona.md`), knowledge maps (`knowledge/`) and
+journal (`journal/`).
 
-Open this repository in Claude Code (terminal, desktop app, or claude.ai/code) and type:
+---
+
+### 1. Claude Code
+
+Open this repository in Claude Code and type a command, or just start talking:
 
 | Command | 使い方 |
 |---|---|
-| `/daily` | 今日の話題 — a fresh topic from a rotating domain, opened with a hook |
+| `/daily` | 今日の話題: a fresh topic from a rotating domain, opened with a hook |
 | `/talk <topic>` | Talk about anything: `/talk 日本の銭湯文化`, `/talk Kubernetes` |
-| `/dive <topic>` | Deeper guided exploration: `/dive 量子コンピュータ` |
+| `/dive <topic>` | A deeper guided exploration: `/dive 量子コンピュータ` |
 | `/surprise` | A random surprising fact, then discussion |
-| `/connect <A> <B>` | Hidden links: `/connect 寿司 blockchain` |
+| `/connect <A> <B>` | Hidden links between two things: `/connect 寿司 blockchain` |
 | `/quiz` | Friendly spaced-repetition review of past topics |
+| `/read <file>` | Discuss a document you put in `library/` |
+| `/settings [key value]` | Depth 1–5, style, turn length, language |
 | `/lang ja\|en\|mix` | Switch language |
-| `/wrap` | Recap + save the session to the journal (commits & pushes so memory persists) |
+| `/wrap` | Recap and save the session to the journal (commits and pushes, so memory persists) |
 
-Or just start talking — no command needed.
+### 2. The Sensei app
 
-### A suggested 15-minute routine
-1. `/daily` (or `/quiz` every few days)
-2. Chat — ask "why?", disagree, share your own experience
-3. `/wrap`
+```bash
+pip install -r requirements.txt
+export ANTHROPIC_API_KEY=sk-ant-...        # from console.anthropic.com
 
-## Daily use (Claude app)
+python -m sensei web                        # chat page → http://127.0.0.1:8765
+python -m sensei                            # or chat in the terminal
+python -m sensei chat /daily                # start straight into today's topic
+python -m sensei web --commit               # also git commit + push the journal on /wrap
+```
 
-See [`claude-ai-project/instructions.md`](claude-ai-project/instructions.md) to set up a
-Claude Project with the same personality and knowledge maps — handy on your phone.
+**On your phone (same Wi-Fi):** `SENSEI_PASSWORD=choose-one python -m sensei web --host 0.0.0.0`,
+then open `http://<your-computer's-IP>:8765` on the phone. The password is required because
+anyone who can reach the page can spend your API credits.
+
+The app supports the same commands as Claude Code (they're read from the same
+`.claude/commands/` files), plus:
+
+- **Learner settings** (`/settings`):
+  `depth` 1–5 (curious beginner → expert peer) ·
+  `style` balanced / socratic / storyteller / debate / quick-facts ·
+  `turn_length` short / medium / long ·
+  `language` auto / ja / en / mix ·
+  `web_search` on/off (lets Sensei check recent facts) ·
+  `effort` low / medium / high (thinking depth: higher is slower and costs more)
+- **Your documents** (`/read <file>`): drop `.md`, `.txt` or `.pdf` files into `library/`.
+- **Memory** (`/wrap`): writes a log entry, adds review items, updates your profile and
+  adds new knowledge-map entries. Review intervals grow 1 → 3 → 7 → 14 → 30 → 60 days
+  when you remember an item, and reset to 1 day when you don't.
+
+It uses Claude Opus 5.5 by default (`/settings model <id>` to change). **Refusal
+fallback** is on: if Claude declines a request, the API automatically retries on a
+fallback model. Cost is roughly a few cents per conversation turn; prompt caching keeps
+the large knowledge base cheap after the first message.
+
+### 3. Claude app or LibreChat
+
+```bash
+python -m sensei export     # → dist/sensei-prompt.md (persona + knowledge + your profile)
+```
+
+- **Claude app:** see [`claude-ai-project/instructions.md`](claude-ai-project/instructions.md).
+- **LibreChat:** see [`integrations/librechat/README.md`](integrations/librechat/README.md).
+
+---
+
+## What's inside
+
+| Path | What it is |
+|---|---|
+| `prompts/persona.md` | Who Sensei is and how it talks: bilingual, short turns, always asks back, cross-domain "そういえば…" connections, honest about uncertainty |
+| `knowledge/` | Topic maps for 10 domains plus a **connections** map. They are seeds for conversation; Claude's own knowledge fills in the rest. |
+| `journal/` | Sensei's memory of you: `profile.md`, `settings.json`, `log.md`, `review.md` |
+| `library/` | Your own documents to discuss |
+| `.claude/commands/` | The slash commands (shared by Claude Code and the app) |
+| `sensei/` | The app: `core.py` (conversation engine), `web.py` + `static/` (chat page), `cli.py`, `journal.py`, `prompt.py` |
+
+## Ideas borrowed from other projects
+
+This project combines the best ideas from several open-source projects. It is written from
+scratch and copies no code from them.
+
+| Idea | Inspired by |
+|---|---|
+| Self-hosted chat page usable from your phone | [LibreChat](https://github.com/LibreChat-AI/LibreChat), [Open WebUI](https://github.com/open-webui/open-webui) |
+| Persistent learner memory, discussing your own documents | [DeepTutor](https://github.com/HKUDS/DeepTutor) |
+| Configurable depth and teaching style | [Mr. Ranedeer AI Tutor](https://github.com/JushBJJ/Mr.-Ranedeer-AI-Tutor) |
+| Tutor as Claude Code skills / slash commands | [claude-tutor](https://awesome.ecosyste.ms/projects/github.com%2Fjeff7712%2Fclaude-tutor) and similar Claude Code learning skills |
+| Socratic questioning | Anthropic's Learning Mode, and Socrates himself |
 
 ## Growing the knowledge base
 
 Every `knowledge/*.md` file is a list of one-line entries. Add your own any time, or let
-Sensei add new concepts and connections during `/wrap`. The more you talk, the richer the map gets.
+Sensei add new concepts and connections during `/wrap`. The more you talk, the richer the
+map gets.

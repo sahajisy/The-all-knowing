@@ -1,0 +1,9 @@
+{
+  "language": "auto",
+  "depth": 3,
+  "style": "balanced",
+  "turn_length": "medium",
+  "web_search": false,
+  "effort": "medium",
+  "model": "claude-opus-5-5"
+}
