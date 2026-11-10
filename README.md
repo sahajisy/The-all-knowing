@@ -25,12 +25,17 @@ journal (`journal/`).
 
 ---
 
-### Voice conversation
+### Voice conversation (Claude app)
 
-Want to *talk* out loud? Use [`voice/CLAUDE.md`](voice/CLAUDE.md): paste it into a Claude
-Project's custom instructions and use voice mode in the Claude app. Sarva then speaks in short,
-natural turns with no tables or lists, and you can say things like "today's topic", "quiz me" or
-「今日はここまで」.
+To *talk* with Sarva out loud in the Claude app:
+
+1. Create a **Project** called "Sarva".
+2. Copy the whole of [`voice/CLAUDE.md`](voice/CLAUDE.md) into the Project's **custom instructions**.
+3. Optional: upload `journal/profile.md` and `knowledge/connections.md` as Project knowledge.
+4. Open a chat in the Project, tap the **voice** button, and say 「こんにちは、Sarva」.
+
+Say "today's topic", "quiz me", "go deeper" or 「今日はここまで」 to wrap up, then "show the log" to get
+a written entry for `journal/log.md`.
 
 ### 1. Claude Code
 
