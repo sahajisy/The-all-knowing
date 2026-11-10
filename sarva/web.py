@@ -1,7 +1,7 @@
-"""A small, dependency-free web chat for Sensei (works on a phone browser).
+"""A small, dependency-free web chat for Sarva (works on a phone browser).
 
 By default it listens on 127.0.0.1 only. To use it from a phone on the same Wi-Fi, run with
-``--host 0.0.0.0`` and set SENSEI_PASSWORD, because anyone who can reach the page can spend
+``--host 0.0.0.0`` and set SARVA_PASSWORD, because anyone who can reach the page can spend
 your API credits.
 """
 
@@ -16,28 +16,28 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 from . import journal as j
-from .core import Sensei
+from .core import Sarva
 
 STATIC = Path(__file__).resolve().parent / "static"
-PASSWORD = os.environ.get("SENSEI_PASSWORD", "")
+PASSWORD = os.environ.get("SARVA_PASSWORD", "")
 MAX_BODY = 64 * 1024
 
-_sessions: dict[str, Sensei] = {}
+_sessions: dict[str, Sarva] = {}
 _locks: dict[str, threading.Lock] = {}
 _registry_lock = threading.Lock()
 COMMIT = False
 
 
-def _session(sid: str) -> tuple[Sensei, threading.Lock]:
+def _session(sid: str) -> tuple[Sarva, threading.Lock]:
     with _registry_lock:
         if sid not in _sessions:
-            _sessions[sid] = Sensei()
+            _sessions[sid] = Sarva()
             _locks[sid] = threading.Lock()
         return _sessions[sid], _locks[sid]
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "Sensei"
+    server_version = "Sarva"
 
     def log_message(self, fmt, *args):  # quieter logs
         pass
@@ -45,7 +45,7 @@ class Handler(BaseHTTPRequestHandler):
     def _authorized(self) -> bool:
         if not PASSWORD:
             return True
-        given = self.headers.get("X-Sensei-Password", "")
+        given = self.headers.get("X-Sarva-Password", "")
         return hmac.compare_digest(given.encode(), PASSWORD.encode())
 
     def _json(self, status: int, payload: dict) -> None:
@@ -90,9 +90,9 @@ class Handler(BaseHTTPRequestHandler):
         if data is None:
             self._json(400, {"error": "bad request"})
             return
-        sensei, lock = _session(data["sid"])
+        sarva, lock = _session(data["sid"])
         if not lock.acquire(blocking=False):
-            self._json(409, {"error": "Sensei is still answering — wait a moment."})
+            self._json(409, {"error": "Sarva is still answering — wait a moment."})
             return
         try:
             if self.path == "/api/chat":
@@ -105,11 +105,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_header("Cache-Control", "no-cache")
                 self.send_header("X-Content-Type-Options", "nosniff")
                 self.end_headers()  # HTTP/1.0: the body streams until the connection closes
-                for chunk in sensei.handle(text):
+                for chunk in sarva.handle(text):
                     self.wfile.write(chunk.encode())
                     self.wfile.flush()
             elif self.path == "/api/wrap":
-                self._json(200, {"text": sensei.wrap(commit=COMMIT)})
+                self._json(200, {"text": sarva.wrap(commit=COMMIT)})
             else:
                 self._json(404, {"error": "not found"})
         except (BrokenPipeError, ConnectionResetError):
@@ -125,10 +125,10 @@ def main(host: str = "127.0.0.1", port: int = 8765, commit: bool = False) -> Non
         suggestion = secrets.token_urlsafe(9)
         raise SystemExit(
             "Refusing to listen on a network address without a password.\n"
-            f"Run e.g.:  SENSEI_PASSWORD={suggestion} python -m sensei web --host {host}"
+            f"Run e.g.:  SARVA_PASSWORD={suggestion} python -m sarva web --host {host}"
         )
     server = ThreadingHTTPServer((host, port), Handler)
-    print(f"Sensei is ready → http://{host if host != '0.0.0.0' else 'localhost'}:{port}  (Ctrl+C to stop)")
+    print(f"Sarva is ready → http://{host if host != '0.0.0.0' else 'localhost'}:{port}  (Ctrl+C to stop)")
     try:
         server.serve_forever()
     except KeyboardInterrupt:

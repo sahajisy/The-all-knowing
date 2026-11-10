@@ -1,6 +1,6 @@
 # Learning log / 学習ログ
 
-Newest session first. Sensei appends an entry during `/wrap`.
+Newest session first. Sarva appends an entry during `/wrap`.
 
 ## Entry template
 

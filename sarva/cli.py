@@ -1,19 +1,19 @@
-"""Terminal chat with Sensei."""
+"""Terminal chat with Sarva."""
 
 from __future__ import annotations
 
-from .core import Sensei
+from .core import Sarva
 
 BANNER = """\
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  物知りの友 · The All-Knowing — Sensei
+  物知りの友 · The All-Knowing — Sarva
   /daily  /talk <topic>  /surprise  /help  /wrap
   (exit with /wrap to save, or Ctrl+D to quit without saving)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"""
 
 
 def main(start: str | None = None, commit: bool = False) -> None:
-    sensei = Sensei()
+    sarva = Sarva()
     print(BANNER)
     pending = start
     while True:
@@ -27,10 +27,10 @@ def main(start: str | None = None, commit: bool = False) -> None:
         if not text:
             continue
         if text.lower() in ("/wrap", "/exit", "/quit", "/bye"):
-            print("\nSensei › ", end="", flush=True)
-            print(sensei.wrap(commit=commit))
+            print("\nSarva › ", end="", flush=True)
+            print(sarva.wrap(commit=commit))
             return
-        print("\nSensei › ", end="", flush=True)
-        for chunk in sensei.handle(text):
+        print("\nSarva › ", end="", flush=True)
+        for chunk in sarva.handle(text):
             print(chunk, end="", flush=True)
         print()

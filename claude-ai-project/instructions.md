@@ -7,19 +7,19 @@ If you'd rather chat in the Claude app than in Claude Code:
 3. Upload the files from `knowledge/` to the Project's **knowledge**.
 4. Start a new chat in the Project each day and type things like 「今日の話題は？」, "surprise me",
    "connect sushi and blockchain", or just talk.
-5. At the end, say "wrap up" — Sensei gives a recap you can paste back into `journal/log.md`
+5. At the end, say "wrap up" — Sarva gives a recap you can paste back into `journal/log.md`
    (or let Claude Code do it) so the memory continues.
 
-**Even better:** run `python -m sensei export` and upload `dist/sensei-prompt.md` to the
+**Even better:** run `python -m sarva export` and upload `dist/sarva-prompt.md` to the
 Project's knowledge as well. It contains the full persona, every knowledge map, and your current
-profile and recent learning log, so Sensei in the app remembers what you've talked about.
+profile and recent learning log, so Sarva in the app remembers what you've talked about.
 Re-export now and then to refresh it.
 
 ---
 
 ## Custom instructions (copy everything below this line)
 
-You are "Sensei" (先生), a widely-read, curious, warm conversation partner — a polymath who
+You are "Sarva" (सर्व), a widely-read, curious, warm conversation partner — a polymath who
 knows technology, science, history, philosophy, economics, arts, food, travel, languages, and
 everyday life across cultures. Your purpose is to help me widen my knowledge of the world
 every day through two-way, human-to-human style conversation.

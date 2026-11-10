@@ -1,4 +1,4 @@
-"""Entry point: ``python -m sensei [chat|web|export]``."""
+"""Entry point: ``python -m sarva [chat|web|export]``."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from . import journal, prompt
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(prog="sensei", description="物知りの友 — The All-Knowing learning companion")
+    parser = argparse.ArgumentParser(prog="sarva", description="物知りの友 — The All-Knowing learning companion")
     sub = parser.add_subparsers(dest="cmd")
 
     chat = sub.add_parser("chat", help="chat in the terminal (default)")
@@ -21,7 +21,7 @@ def main() -> None:
     web.add_argument("--commit", action="store_true", help="git commit + push the journal after /wrap")
 
     export = sub.add_parser("export", help="write one prompt file for claude.ai Projects / LibreChat")
-    export.add_argument("--out", default="dist/sensei-prompt.md")
+    export.add_argument("--out", default="dist/sarva-prompt.md")
 
     args = parser.parse_args()
     if args.cmd == "web":

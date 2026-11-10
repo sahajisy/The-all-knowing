@@ -1,23 +1,23 @@
 # The All-Knowing — 物知りの友
 
 A daily **conversational learning companion** built on Claude. Instead of reading
-Wikipedia pages, you *talk* with **Sensei** (先生), someone who seems to know everything.
+Wikipedia pages, you *talk* with **Sarva** (सर्व), someone who seems to know everything.
 You can talk in Japanese or English, and the conversation goes both ways, like one between
 two people.
 
 > **You:** 日本の暮らしについて話したい
 >
-> **Sensei:** いいですね！じゃあ「もったいない」から始めましょうか。実はこの言葉、ケニアの
+> **Sarva:** いいですね！じゃあ「もったいない」から始めましょうか。実はこの言葉、ケニアの
 > ノーベル平和賞受賞者ワンガリ・マータイさんが世界に広めたんです。そういえば、細胞にも
 > 「もったいない」の仕組みがあって、大隅良典さんがノーベル賞を取ったオートファジーがまさに
 > それなんですよ。…ちなみに、普段の生活で「もったいない」と感じるのはどんな時ですか？
 
-## Three ways to use it (same Sensei, same memory)
+## Three ways to use it (same Sarva, same memory)
 
 | Where | Best for | Needs |
 |---|---|---|
 | **1. Claude Code** (claude.ai/code, desktop, terminal) | Easiest; memory saved to GitHub automatically | A Claude subscription |
-| **2. Sensei app** (`python -m sensei web`) | A dedicated chat page on your computer or phone, with adjustable depth and style, your own documents, and optional web search | An Anthropic API key (pay per use) |
+| **2. Sarva app** (`python -m sarva web`) | A dedicated chat page on your computer or phone, with adjustable depth and style, your own documents, and optional web search | An Anthropic API key (pay per use) |
 | **3. Claude app / LibreChat** (exported prompt) | Chatting on your phone in the Claude app, or in a self-hosted LibreChat | A Claude subscription, or LibreChat plus an API key |
 
 All three read the same persona (`prompts/persona.md`), knowledge maps (`knowledge/`) and
@@ -42,19 +42,19 @@ Open this repository in Claude Code and type a command, or just start talking:
 | `/lang ja\|en\|mix` | Switch language |
 | `/wrap` | Recap and save the session to the journal (commits and pushes, so memory persists) |
 
-### 2. The Sensei app
+### 2. The Sarva app
 
 ```bash
 pip install -r requirements.txt
 export ANTHROPIC_API_KEY=sk-ant-...        # from console.anthropic.com
 
-python -m sensei web                        # chat page → http://127.0.0.1:8765
-python -m sensei                            # or chat in the terminal
-python -m sensei chat /daily                # start straight into today's topic
-python -m sensei web --commit               # also git commit + push the journal on /wrap
+python -m sarva web                        # chat page → http://127.0.0.1:8765
+python -m sarva                            # or chat in the terminal
+python -m sarva chat /daily                # start straight into today's topic
+python -m sarva web --commit               # also git commit + push the journal on /wrap
 ```
 
-**On your phone (same Wi-Fi):** `SENSEI_PASSWORD=choose-one python -m sensei web --host 0.0.0.0`,
+**On your phone (same Wi-Fi):** `SARVA_PASSWORD=choose-one python -m sarva web --host 0.0.0.0`,
 then open `http://<your-computer's-IP>:8765` on the phone. The password is required because
 anyone who can reach the page can spend your API credits.
 
@@ -66,7 +66,7 @@ The app supports the same commands as Claude Code (they're read from the same
   `style` balanced / socratic / storyteller / debate / quick-facts ·
   `turn_length` short / medium / long ·
   `language` auto / ja / en / mix ·
-  `web_search` on/off (lets Sensei check recent facts) ·
+  `web_search` on/off (lets Sarva check recent facts) ·
   `effort` low / medium / high (thinking depth: higher is slower and costs more)
 - **Your documents** (`/read <file>`): drop `.md`, `.txt` or `.pdf` files into `library/`.
 - **Memory** (`/wrap`): writes a log entry, adds review items, updates your profile and
@@ -81,7 +81,7 @@ the large knowledge base cheap after the first message.
 ### 3. Claude app or LibreChat
 
 ```bash
-python -m sensei export     # → dist/sensei-prompt.md (persona + knowledge + your profile)
+python -m sarva export     # → dist/sarva-prompt.md (persona + knowledge + your profile)
 ```
 
 - **Claude app:** see [`claude-ai-project/instructions.md`](claude-ai-project/instructions.md).
@@ -93,12 +93,12 @@ python -m sensei export     # → dist/sensei-prompt.md (persona + knowledge + y
 
 | Path | What it is |
 |---|---|
-| `prompts/persona.md` | Who Sensei is and how it talks: bilingual, short turns, always asks back, cross-domain "そういえば…" connections, honest about uncertainty |
+| `prompts/persona.md` | Who Sarva is and how it talks: bilingual, short turns, always asks back, cross-domain "そういえば…" connections, honest about uncertainty |
 | `knowledge/` | Topic maps for 10 domains plus a **connections** map. They are seeds for conversation; Claude's own knowledge fills in the rest. |
-| `journal/` | Sensei's memory of you: `profile.md`, `settings.json`, `log.md`, `review.md` |
+| `journal/` | Sarva's memory of you: `profile.md`, `settings.json`, `log.md`, `review.md` |
 | `library/` | Your own documents to discuss |
 | `.claude/commands/` | The slash commands (shared by Claude Code and the app) |
-| `sensei/` | The app: `core.py` (conversation engine), `web.py` + `static/` (chat page), `cli.py`, `journal.py`, `prompt.py` |
+| `sarva/` | The app: `core.py` (conversation engine), `web.py` + `static/` (chat page), `cli.py`, `journal.py`, `prompt.py` |
 
 ## Ideas borrowed from other projects
 
@@ -116,5 +116,5 @@ scratch and copies no code from them.
 ## Growing the knowledge base
 
 Every `knowledge/*.md` file is a list of one-line entries. Add your own any time, or let
-Sensei add new concepts and connections during `/wrap`. The more you talk, the richer the
+Sarva add new concepts and connections during `/wrap`. The more you talk, the richer the
 map gets.

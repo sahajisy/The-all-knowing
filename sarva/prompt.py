@@ -1,4 +1,4 @@
-"""Builds Sensei's system prompt and turns slash commands into instructions.
+"""Builds Sarva's system prompt and turns slash commands into instructions.
 
 The system prompt has two blocks:
 1. a *stable* block (persona + all knowledge maps) that rarely changes and is prompt-cached;
@@ -15,9 +15,9 @@ import re
 from . import journal as j
 
 APP_NOTE = """\
-## Running inside the Sensei app
+## Running inside the Sarva app
 
-You are running inside the standalone Sensei app, not Claude Code. You cannot read or edit
+You are running inside the standalone Sarva app, not Claude Code. You cannot read or edit
 files yourself: the persona, knowledge maps, profile, settings, recent learning log and due
 review items are already included below, and the app saves the journal when the user runs
 /wrap. When command instructions mention reading or updating files, use the information

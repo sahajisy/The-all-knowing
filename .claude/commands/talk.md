@@ -8,7 +8,7 @@ The user wants to talk about: **$ARGUMENTS**
 Briefly check `journal/log.md` for whether this topic (or something close) came up before,
 and `journal/profile.md` for their background, so you can build on it rather than repeat it.
 
-Then open the conversation as Sensei (see CLAUDE.md):
+Then open the conversation as Sarva (see CLAUDE.md):
 - Start with one interesting angle on the topic — a story, a striking fact, or a
   provocative question — not an overview.
 - Within the first couple of turns, make at least one **cross-domain connection**

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sensei · 物知りの友</title>
+<title>Sarva · 物知りの友</title>
 <style>
   :root {
     --bg: #faf7f2; --panel: #ffffff; --ink: #2b2620; --muted: #7a7064;
@@ -33,14 +33,14 @@
   .wrap { max-width: 760px; margin: 0 auto; }
   .msg { margin: 0 0 16px; padding: 12px 14px; border-radius: 14px; overflow-wrap: anywhere; }
   .me { background: var(--me); margin-left: 15%; white-space: pre-wrap; }
-  .sensei { background: var(--panel); border: 1px solid var(--line); }
+  .sarva { background: var(--panel); border: 1px solid var(--line); }
   .who { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
-  .sensei p { margin: 0 0 .6em; } .sensei p:last-child { margin-bottom: 0; }
-  .sensei ul, .sensei ol { margin: .2em 0 .6em; padding-left: 1.3em; }
-  .sensei h3, .sensei h4 { margin: .6em 0 .3em; font-size: 1em; }
-  .sensei code { background: var(--code); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
-  .sensei table { border-collapse: collapse; margin: .4em 0; font-size: 14px; display: block; overflow-x: auto; }
-  .sensei td, .sensei th { border: 1px solid var(--line); padding: 4px 8px; text-align: left; }
+  .sarva p { margin: 0 0 .6em; } .sarva p:last-child { margin-bottom: 0; }
+  .sarva ul, .sarva ol { margin: .2em 0 .6em; padding-left: 1.3em; }
+  .sarva h3, .sarva h4 { margin: .6em 0 .3em; font-size: 1em; }
+  .sarva code { background: var(--code); padding: 1px 5px; border-radius: 5px; font-size: .92em; }
+  .sarva table { border-collapse: collapse; margin: .4em 0; font-size: 14px; display: block; overflow-x: auto; }
+  .sarva td, .sarva th { border: 1px solid var(--line); padding: 4px 8px; text-align: left; }
   .chips { display: flex; gap: 8px; overflow-x: auto; padding: 8px 16px 0; max-width: 792px; margin: 0 auto; width: 100%; }
   .chip {
     flex: none; border: 1px solid var(--line); background: var(--panel); color: var(--ink);
@@ -98,9 +98,9 @@
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, v); } catch {} },
   };
-  let sid = store.get("sensei-sid");
-  if (!sid) { sid = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()); store.set("sensei-sid", sid); }
-  let password = store.get("sensei-pw") || "";
+  let sid = store.get("sarva-sid");
+  if (!sid) { sid = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2) + Date.now()); store.set("sarva-sid", sid); }
+  let password = store.get("sarva-pw") || "";
   let busy = false;
 
   fetch("/api/state").then(r => r.json()).then(s => {
@@ -108,7 +108,7 @@
     $("meta").textContent = `depth ${st.depth} · ${st.style}` + (s.due_reviews ? ` · 復習 ${s.due_reviews}` : "");
     if (s.password_required && !password) {
       password = prompt("Password / パスワード") || "";
-      store.set("sensei-pw", password);
+      store.set("sarva-pw", password);
     }
   }).catch(() => {});
 
@@ -147,9 +147,9 @@
   function bubble(who, text) {
     $("empty")?.remove();
     const div = document.createElement("div");
-    div.className = "msg " + (who === "me" ? "me" : "sensei");
+    div.className = "msg " + (who === "me" ? "me" : "sarva");
     if (who === "me") div.textContent = text;
-    else div.innerHTML = '<div class="who">Sensei 先生</div><div class="body"></div>';
+    else div.innerHTML = '<div class="who">Sarva</div><div class="body"></div>';
     log.appendChild(div);
     scroll.scrollTop = scroll.scrollHeight;
     return div;
@@ -159,15 +159,15 @@
     if (busy || !text.trim()) return;
     busy = true; send.disabled = true;
     bubble("me", text);
-    const out = bubble("sensei").querySelector(".body");
+    const out = bubble("sarva").querySelector(".body");
     out.textContent = "…";
-    const headers = { "Content-Type": "application/json", "X-Sensei-Password": password };
+    const headers = { "Content-Type": "application/json", "X-Sarva-Password": password };
     const wrap = text.trim().toLowerCase() === "/wrap";
     try {
       const res = await fetch(wrap ? "/api/wrap" : "/api/chat", { method: "POST", headers, body: JSON.stringify({ sid, text }) });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        if (res.status === 401) store.set("sensei-pw", "");
+        if (res.status === 401) store.set("sarva-pw", "");
         out.textContent = "⚠️ " + (err.error || res.statusText);
       } else if (wrap) {
         out.innerHTML = md((await res.json()).text);

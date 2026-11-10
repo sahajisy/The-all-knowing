@@ -1,7 +1,7 @@
 # Knowledge Maps / 知識マップ
 
 These files are **topic maps**, not encyclopedia articles. Each one lists concepts,
-places, people and surprising "hooks" that make good conversation starters. Sensei's own
+places, people and surprising "hooks" that make good conversation starters. Sarva's own
 broad knowledge fills in the details during conversation — the maps make sure the
 conversations range widely and keep finding connections.
 
@@ -19,7 +19,7 @@ conversations range widely and keep finding connections.
 | [language.md](language.md) | Linguistics, etymology, writing systems, translation |
 | [connections.md](connections.md) | Cross-domain links — the heart of the "そういえば…" style |
 
-The Sensei app includes all of these maps in its system prompt (prompt-cached), so keep
+The Sarva app includes all of these maps in its system prompt (prompt-cached), so keep
 entries short: one line each.
 
 ## Entry format
@@ -28,5 +28,5 @@ entries short: one line each.
 - **Name / 日本語名** — one-line hook (what makes it interesting) → links: other entries
 ```
 
-Add new entries any time (Sensei adds them during `/wrap`). Keep each to one line.
+Add new entries any time (Sarva adds them during `/wrap`). Keep each to one line.
 Accuracy matters: only add things you are confident are true.

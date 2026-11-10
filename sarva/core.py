@@ -83,7 +83,7 @@ that are genuinely new and accurate. For review results, use the exact idea text
 review items list. If we barely talked, keep everything minimal."""
 
 
-class Sensei:
+class Sarva:
     def __init__(self, client: anthropic.Anthropic | None = None):
         self.client = client or anthropic.Anthropic()
         self.settings = j.load_settings()
@@ -153,7 +153,7 @@ class Sensei:
         self.messages.append({"role": "user", "content": user_content})
         start = len(self.messages) - 1
         if self.pending_notes:
-            # Mid-conversation system message: tells Sensei about setting changes
+            # Mid-conversation system message: tells Sarva about setting changes
             # without editing the cached system prompt.
             note = (f"The user changed learner settings: {', '.join(self.pending_notes)}. "
                     f"Apply them from this reply on.\nCurrent settings:\n{prompt.describe_settings(self.settings)}")

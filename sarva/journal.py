@@ -1,4 +1,4 @@
-"""Sensei's memory: the learner profile, settings, session log, and review queue.
+"""Sarva's memory: the learner profile, settings, session log, and review queue.
 
 Everything lives in plain Markdown/JSON under ``journal/`` so the same memory is shared
 by the app, Claude Code, and the user (who can read and edit it by hand).
@@ -195,7 +195,7 @@ def add_profile_notes(notes: list[str], open_threads: list[str]) -> None:
     existing = read(PROFILE)
     notes = [n for n in notes if n and n not in existing]
     threads = [t for t in open_threads if t and t not in existing]
-    _insert_after_heading(PROFILE, "## Things Sensei has learned about the user", [f"- {n}" for n in notes])
+    _insert_after_heading(PROFILE, "## Things Sarva has learned about the user", [f"- {n}" for n in notes])
     _insert_after_heading(PROFILE, "## Topics they want to explore later / いつか話したいこと", [f"- {t}" for t in threads])
 
 

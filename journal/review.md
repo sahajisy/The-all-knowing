@@ -5,4 +5,4 @@ Key ideas from past conversations, reviewed with `/quiz` using spaced repetition
 
 | Idea | Domain | Learned | Interval (days) | Next review |
 |---|---|---|---|---|
-<!-- Sensei adds rows during /wrap -->
+<!-- Sarva adds rows during /wrap -->

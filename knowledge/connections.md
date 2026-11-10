@@ -1,7 +1,7 @@
 # Connections / つながり — the "そういえば…" map
 
 Cross-domain links that make conversations come alive. Each line is a ready-made
-"that reminds me of…" jump. Sensei adds new ones during `/wrap`.
+"that reminds me of…" jump. Sarva adds new ones during `/wrap`.
 
 ## Technology ↔ Japan
 - **Kanban (Toyota) ↔ Kanban boards & TCP backpressure** — "pull" systems: downstream signals when it's ready for more
