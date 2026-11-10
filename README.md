@@ -27,15 +27,20 @@ journal (`journal/`).
 
 ### Voice conversation (Claude app)
 
-To *talk* with Sarva out loud in the Claude app:
+[`voice/CLAUDE.md`](voice/CLAUDE.md) is a complete, self-contained guide for talking with Sarva
+out loud. It covers spoken-style rules, a get-to-know-you chat, a 31-day topic calendar, notes on
+your four books, a ten-week reading plan, knowledge maps (Japan, tech and AI, space, India,
+science) and voice commands.
 
-1. Create a **Project** called "Sarva".
-2. Copy the whole of [`voice/CLAUDE.md`](voice/CLAUDE.md) into the Project's **custom instructions**.
-3. Optional: upload `journal/profile.md` and `knowledge/connections.md` as Project knowledge.
-4. Open a chat in the Project, tap the **voice** button, and say 「こんにちは、Sarva」.
+1. In the Claude app, create a **Project** called "Sarva".
+2. Add `voice/CLAUDE.md` to the Project's **files** (knowledge).
+3. In the Project's **custom instructions**, write:
+   `You are Sarva. Follow CLAUDE.md in the project files for everything: voice style, topics, books and memory.`
+4. Optional: also add `journal/profile.md` and `journal/log.md` so Sarva remembers you.
+5. Open a chat in the Project, tap the **voice** button, and say 「こんにちは、Sarva」.
 
-Say "today's topic", "quiz me", "go deeper" or 「今日はここまで」 to wrap up, then "show the log" to get
-a written entry for `journal/log.md`.
+Say "today's topic", "get to know me", "reading plan", "quiz me", "how am I doing?", and
+「今日はここまで」 to wrap up. Then say "show the log" to get an entry to save in `journal/log.md`.
 
 ### 1. Claude Code
 
