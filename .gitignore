@@ -2,3 +2,8 @@ dist/
 __pycache__/
 *.pyc
 .venv/
+
+# Your own documents (e.g. Wikipedia Library articles) are licensed to you personally:
+# keep them local and never push them to GitHub.
+library/*
+!library/README.md
